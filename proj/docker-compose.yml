@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  itr-server:
+    build: .
+    container_name: itr-server
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    restart: always
+    depends_on:
+      - postgresql
+      - elasticsearch
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/itransition
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=mypassword
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgresql:
+    container_name: postgresql
+    image: postgres:13
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=itransition
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+    restart: always

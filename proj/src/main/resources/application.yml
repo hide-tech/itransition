@@ -1,0 +1,34 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 455954217105-dv4hvjulc1mdc7i9vpo25pcm2tnnhu0q.apps.googleusercontent.com
+            client-secret: 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
+            redirectUri: "/api/oauth/redirect/{registrationId}"
+            scope:
+              - email
+              - profile
+  datasource:
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate:
+        ddl-auto: create
+      show-sql: true
+    username: root
+    password: mypassword
+    url: "jdbc:postgresql://postgresql:5432/itransition"
+  flyway:
+    url: "jdbc:postgresql://postgresql:5432/itransition"
+    user: root
+    password: mypassword
+  data:
+    elasticsearch:
+      cluster-name: docker-cluster
+      cluster-nodes: "elasticsearch:9200"
+      repositories:
+        enabled: true
+
