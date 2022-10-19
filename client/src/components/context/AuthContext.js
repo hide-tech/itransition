@@ -5,6 +5,7 @@ const AuthContext = React.createContext()
 class AuthProvider extends Component {
   state = {
     user: null
+    
   }
 
   componentDidMount() {

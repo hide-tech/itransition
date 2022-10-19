@@ -9,12 +9,14 @@ class UserPage extends Component {
   static contextType = AuthContext
 
   state = {
-    isUser: true
+    isUser: true,
+    Auth: null,
+    user: null
   }
 
   componentDidMount() {
     const Auth = this.context
-    const user = Auth.getUser()
+    const user = serverApi.getUserByEmail(Auth.getUser().name)
     const isUser = user.role === 'USER'
     this.setState({ isUser })
   }
