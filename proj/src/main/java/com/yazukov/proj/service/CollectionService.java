@@ -62,4 +62,10 @@ public class CollectionService {
         user.setCollections(collections);
         return user;
     }
+
+    public CollectionDto getCollectionById(Long collectionId) throws CollectionNotFoundException {
+        Collection collection = collectionRepository.findById(collectionId).orElseThrow(()->
+                new CollectionNotFoundException("Not found"));
+        return collectionMapper.collectionToCollectionDto(collection);
+    }
 }

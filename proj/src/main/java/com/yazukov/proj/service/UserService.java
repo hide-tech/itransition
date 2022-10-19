@@ -142,4 +142,9 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return true;
     }
+
+    public UserDto getUserByUsername(String username) {
+        User user = userRepository.findByEmail(username).orElseThrow(()->new UsernameNotFoundException("Not found"));
+        return userMapper.userToUserDto(user);
+    }
 }

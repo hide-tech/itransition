@@ -27,6 +27,13 @@ public class CollectionController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/{userId}/collections/{collectionId}")
+    public ResponseEntity<CollectionDto> getCollectionById(@PathVariable("collectionId") Long collectionId)
+            throws CollectionNotFoundException {
+        return ResponseEntity.ok(collectionService.getCollectionById(collectionId));
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/{userId}/collections")
     public ResponseEntity<?> createNewCollection(@PathVariable("userId") Long userId,
                                                  @RequestBody CollectionDto collectionDto)

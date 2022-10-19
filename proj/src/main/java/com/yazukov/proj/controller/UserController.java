@@ -35,6 +35,12 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/name/{username}")
+    public ResponseEntity<UserDto> getUserByName(@PathVariable("username") String username)
+            throws UserNotFoundException {
+        return ResponseEntity.ok(userService.getUserByUsername(username));
+    }
+
     @PostMapping
     public ResponseEntity<?> createNewUser(@RequestBody UserDto userDto) throws UserAlreadyExistException {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createNewUser(userDto));
