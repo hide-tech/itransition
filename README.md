@@ -1,2 +1,2 @@
 # itransition
-backend project from intern course
+backend and client project from intern course
