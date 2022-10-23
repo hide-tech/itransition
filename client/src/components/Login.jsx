@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./context/useAuth";
+import { serverApi } from "./server/ServerApi"
+import { handleLogError } from "./server/ErrorHandler";
 
 const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
-    const { login } = useAuth()
+    const { login, setFailed } = useAuth()
 
     const fromPage = location.state?.from?.pathname || "/"
 
@@ -14,7 +16,22 @@ const Login = () => {
         const username = event.target.usname.value
         const password = event.target.pwd.value
 
-        login({username, password}, () => navigate(fromPage, {replace: true}))
+        serverApi.authenticate(username, password)
+        .then(response => {
+            if (response.status === '200'){
+                serverApi.getUserByEmail(username, password, username)
+                .then(response => {
+                    const getUser = response.data
+                    login(getUser, () => navigate(fromPage, {replace: true}))
+                }).catch(error => {
+                    handleLogError(error)
+                    setFailed(true)
+                })
+            }
+        }).catch(error => {
+            handleLogError(error)
+            setFailed(true)
+        })
     }
     
     return ( 

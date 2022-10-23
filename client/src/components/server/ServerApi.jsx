@@ -64,10 +64,10 @@ function getUserById(user, userId) {
   })
 }
 
-function getUserByEmail(user, email) {
+function getUserByEmail(username, password, email) {
   return instance.get('/api/users/name/'+email, {
     headers: { 'Content-type': 'application/json',
-    'Authorization': basicAuth(user) }
+    'Authorization': bsAuth(username, password) }
   })
 }
 
@@ -233,4 +233,8 @@ const instance = axios.create({
 
 function basicAuth(user) {
   return `Basic ${user.authdata}`
+}
+
+function bsAuth(username, password){
+  return 'Basic ';
 }
