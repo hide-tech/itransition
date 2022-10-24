@@ -33,7 +33,7 @@ function Navbar() {
         <div style={logoutMenuStyle()}> Hello ${user?.username}</div>
         <NavLink to={"/"} style={logoutMenuStyle()} onClick={()=>logout(()=>navigate('/'))}>Logout</NavLink>
         <NavLink to={"/user"}>User Page</NavLink>
-        <NavLink to={"/admin"}>AdminPage</NavLink>
+        <NavLink to={"/admin"}>Admin Page</NavLink>
       </header>
 
       <Outlet />

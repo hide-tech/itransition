@@ -1,10 +1,12 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { handleLogError } from "./server/ErrorHandler";
 import { serverApi } from "./server/ServerApi"
+import { useAuth } from "./context/useAuth";
 
 const Signup = () => {
     const navigate = useNavigate()
     const location = useLocation()
+    const { setFailed } = useAuth()
     
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -30,7 +32,7 @@ const Signup = () => {
                 <label>
                     Password: <input name="pwd" />
                 </label>
-                <button type="submit">Login</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     );

@@ -20,15 +20,15 @@ spring:
       show-sql: true
     username: root
     password: mypassword
-    url: "jdbc:postgresql://postgresql:5432/itransition"
+    url: "jdbc:postgresql://localhost:5435/itransition"
   flyway:
-    url: "jdbc:postgresql://postgresql:5432/itransition"
+    url: "jdbc:postgresql://localhost:5435/itransition"
     user: root
     password: mypassword
   data:
     elasticsearch:
       cluster-name: docker-cluster
-      cluster-nodes: "elasticsearch:9200"
+      cluster-nodes: "localhost:9200"
       repositories:
         enabled: true
 
