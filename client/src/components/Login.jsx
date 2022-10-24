@@ -16,17 +16,11 @@ const Login = () => {
         const username = event.target.usname.value
         const password = event.target.pwd.value
 
-        serverApi.authenticate(username, password)
+        serverApi.getUserByEmail(username, password, username)
         .then(response => {
             if (response.status === '200'){
-                serverApi.getUserByEmail(username, password, username)
-                .then(response => {
-                    const getUser = response.data
-                    login(getUser, () => navigate(fromPage, {replace: true}))
-                }).catch(error => {
-                    handleLogError(error)
-                    setFailed(true)
-                })
+                const getUser = JSON.parse(response.data)
+                login(getUser, () => navigate(fromPage, {replace: true}))
             }
         }).catch(error => {
             handleLogError(error)

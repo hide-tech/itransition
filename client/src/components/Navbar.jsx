@@ -16,12 +16,12 @@ function Navbar() {
     
       const adminPageStyle = () => {
         const usr = user
-        return usr && usr.role === 'ADMIN' ? { "display": "block" } : { "display": "none" }
+        return usr && usr.role === 'ROLE_ADMIN' ? { "display": "block" } : { "display": "none" }
       }
     
       const userPageStyle = () => {
         const usr = user
-        return usr && usr.role === 'USER' ? { "display": "block" } : { "display": "none" }
+        return usr && usr.role === 'ROLE_USER' ? { "display": "block" } : { "display": "none" }
       }
 
   return (
@@ -32,8 +32,8 @@ function Navbar() {
         <NavLink to={"/signup"} style={enterMenuStyle()}>Signup</NavLink>
         <div style={logoutMenuStyle()}> Hello ${user?.username}</div>
         <NavLink to={"/"} style={logoutMenuStyle()} onClick={()=>logout(()=>navigate('/'))}>Logout</NavLink>
-        <NavLink to={"/user"}>User Page</NavLink>
-        <NavLink to={"/admin"}>Admin Page</NavLink>
+        <NavLink to={"/user"} style={userPageStyle()}>User Page</NavLink>
+        <NavLink to={"/admin"} style={adminPageStyle()}>Admin Page</NavLink>
       </header>
 
       <Outlet />
