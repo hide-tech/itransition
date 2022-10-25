@@ -8,9 +8,11 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import AdminPage from './components/admin/AdminPage'
 import UserPage from './components/user/UserPage'
-
+import CollectionForm from './components/forms/CollectionForm'
+import ItemForm from './components/forms/ItemForm'
 
 function App() {
+
   return (
     <AuthProvider>
       <Routes>
@@ -28,6 +30,8 @@ function App() {
               <UserPage />
             </PrivateRoute>
           } />
+          <Route path={'collection'} element={<CollectionForm />} />
+          <Route path={'item'} element={<ItemForm />} />
         </Route>
       </Routes>
     </AuthProvider>

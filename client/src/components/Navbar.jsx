@@ -7,22 +7,22 @@ function Navbar() {
     const navigate = useNavigate()
 
     const enterMenuStyle = () => {
-        return user ? { "display": "none" } : { "display": "block" }
-      }
+      return user ? { "display": "none" } : { "display": "block" }
+    }
     
-      const logoutMenuStyle = () => {
-        return user ? { "display": "block" } : { "display": "none" }
-      }
+    const logoutMenuStyle = () => {
+      return user ? { "display": "block" } : { "display": "none" }
+    }
     
-      const adminPageStyle = () => {
-        const usr = user
-        return usr && usr.role === 'ROLE_ADMIN' ? { "display": "block" } : { "display": "none" }
-      }
+    const adminPageStyle = () => {
+      const usr = user
+      return usr && usr.role === 'ROLE_ADMIN' ? { "display": "block" } : { "display": "none" }
+    }
     
-      const userPageStyle = () => {
-        const usr = user
-        return usr && usr.role === 'ROLE_USER' ? { "display": "block" } : { "display": "none" }
-      }
+    const userPageStyle = () => {
+      const usr = user
+      return usr && usr.role === 'ROLE_USER' ? { "display": "block" } : { "display": "none" }
+    }
 
   return (
     <>
