@@ -42,12 +42,12 @@ function Collections({collections, removeCollection}) {
             return (
                 <table className="collection-table" key={collection.id}>
                     <col>{collection.id}</col>
-                    <col>{collection.name}</col>
+                    <col><Link to={"/collection/"+collection.id}>{collection.name}</Link></col>
                     <col>{collection.description}</col>
                     <col>{collection.theme}</col>
                     <col><img src={collection.photoUri} /></col>
                     <col><button onClick={removeCollection(collection.id)}>Remove collection</button></col>
-                    <col><Link to={'/collection'} collection={collection} actionFunction={updateCollection}>update collection</Link></col>
+                    <col><Link to={'/collection-form'} changedCollection={collection} actionFunction={updateCollection}>update collection</Link></col>
                 </table>
             )
         })
@@ -56,7 +56,7 @@ function Collections({collections, removeCollection}) {
     return ( 
         <div className="user-table">
             {collectionList}
-            <Link to={'/collection'} collection={null} actionFunction={createCollection}>Add new collection</Link>
+            <Link to={'/collection-form'} changedCollection={null} actionFunction={createCollection}>Add new collection</Link>
         </div>
     );
 }

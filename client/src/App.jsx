@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useParams } from 'react-router-dom'
 import { AuthProvider } from './components/context/AuthProvider'
 import PrivateRoute from './components/server/PrivateRoute'
 import Navbar from './components/Navbar'
@@ -10,8 +10,11 @@ import AdminPage from './components/admin/AdminPage'
 import UserPage from './components/user/UserPage'
 import CollectionForm from './components/forms/CollectionForm'
 import ItemForm from './components/forms/ItemForm'
+import Collection from './components/Collection'
 
 function App() {
+
+  const { collectionId } = useParams()
 
   return (
     <AuthProvider>
@@ -30,8 +33,9 @@ function App() {
               <UserPage />
             </PrivateRoute>
           } />
-          <Route path={'collection'} element={<CollectionForm />} />
-          <Route path={'item'} element={<ItemForm />} />
+          <Route path={'collection-form'} element={<CollectionForm />} />
+          <Route path={'item-form'} element={<ItemForm />} />
+          <Route path={'collections/:collectionId'} element={<Collection />} />
         </Route>
       </Routes>
     </AuthProvider>

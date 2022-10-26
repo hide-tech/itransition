@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./context/useAuth";
 import UploadPhoto from "./UploadPhoto";
 import { useState } from "react";
 

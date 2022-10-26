@@ -16,18 +16,27 @@ const AdminPage = () => {
         .then(response => {
             const usersFromServer = JSON.parse(response.data)
             setUsers(usersFromServer)
+            setFailed(false)
         }).catch(error => {
             handleLogError(error)
             setFailed(true)
         })
 
-
+        serverApi.getAllCollectionsByUserId(user, user.id)
+        .then(response => {
+            const collectionsFromServer = JSON.parse(response.data)
+            setCollections(collectionsFromServer)
+            setFailed(false)
+        }).catch(error => {
+            handleLogError(error)
+            setFailed(true)
+        })
     }, [])
 
     function banUser( userId ) {
         serverApi.banUserById(user, userId)
         .then(
-            console.log("user with id "+ userId + " has been banned")
+            setFailed(false)
         )
         .catch(error => {
             handleLogError(error)
@@ -38,7 +47,7 @@ const AdminPage = () => {
     function unbanUser( userId ) {
         serverApi.unbanUserById(user, userId)
         .then(
-            console.log("user with id "+ userId + " has been unlocked")
+            setFailed(false)
         )
         .catch(error => {
             handleLogError(error)
@@ -49,7 +58,7 @@ const AdminPage = () => {
     function makeAdmin( userId ){
         serverApi.setAdminUser(user, userId)
         .then(
-            console.log("user with id "+ userId + " has became admin")
+            setFailed(false)
         )
         .catch(error => {
             handleLogError(error)
@@ -63,6 +72,7 @@ const AdminPage = () => {
             if (response.status === '204'){
                 const newCollections = collections.filter(col => col.id !== collectionId)
                 setCollections(newCollections)
+                setFailed(false)
             }
         }).catch(error => {
             handleLogError(error)
