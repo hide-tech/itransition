@@ -86,6 +86,7 @@ public class UserService implements UserDetailsService {
         user.setSkin(userDto.getSkin());
         user.setLanguage(userDto.getLanguage());
         User updatedUser = userRepository.save(user);
+
         return userMapper.userToUserDto(updatedUser);
     }
 

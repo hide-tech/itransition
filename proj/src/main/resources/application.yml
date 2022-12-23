@@ -31,4 +31,7 @@ spring:
       cluster-nodes: "localhost:9200"
       repositories:
         enabled: true
+rsa:
+  private-key: "classpath:certs/private.pem"
+  public-key: "classpath:certs/public.pem"
 
