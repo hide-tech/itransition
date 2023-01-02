@@ -25,4 +25,3 @@ public class CommentLike {
     private Comment comment;
 
 }
-

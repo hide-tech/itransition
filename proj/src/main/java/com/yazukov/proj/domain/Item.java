@@ -12,6 +12,7 @@ import org.hibernate.annotations.TypeDefs;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,17 +26,17 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "items_tags",
             joinColumns = {@JoinColumn(name = "item_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")}
     )
-    private List<ItemTag> tags;
+    private Set<ItemTag> tags;
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     private Map<String, String> fields;
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "collection_id")

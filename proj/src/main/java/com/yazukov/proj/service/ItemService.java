@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +45,7 @@ public class ItemService {
     public ItemDto createNewItem(Long collectionId, Long userId, ItemDto itemDto) throws CollectionNotFoundException {
         Collection collection = collectionRepository.findById(collectionId).orElseThrow(()->
                 new CollectionNotFoundException("Collection for this item couldn't found"));
-        List<ItemTag> tags = itemDto.getTags().stream().map(itemTagMapper::itemTagDtoToItemTag)
+        Set<ItemTag> tags = itemDto.getTags().stream().map(itemTagMapper::itemTagDtoToItemTag)
                 .map(tag -> {
                     ItemTag res;
                     Optional<ItemTag> byName = itemTagRepository.findByName(tag.getName());
@@ -52,7 +53,7 @@ public class ItemService {
                     else res = byName.get();
                     return res;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         Item item = itemMapper.itemDtoToItem(itemDto);
         item.setTags(tags);
         item.setCollection(collection);
@@ -65,7 +66,7 @@ public class ItemService {
     public ItemDto updateItem(ItemDto itemDto) throws ItemNotFoundException {
         Item item = itemRepository.findById(itemDto.getId()).orElseThrow(()->
                 new ItemNotFoundException("Item not found"));
-        List<ItemTag> tags = itemDto.getTags().stream().map(itemTagMapper::itemTagDtoToItemTag)
+        Set<ItemTag> tags = itemDto.getTags().stream().map(itemTagMapper::itemTagDtoToItemTag)
                 .map(tag -> {
                     ItemTag res;
                     Optional<ItemTag> byName = itemTagRepository.findByName(tag.getName());
@@ -73,7 +74,7 @@ public class ItemService {
                     else res = byName.get();
                     return res;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         item.setTags(tags);
         item.setFields(itemDto.getFields());
         item.setName(itemDto.getName());

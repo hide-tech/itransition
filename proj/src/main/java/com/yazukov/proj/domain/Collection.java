@@ -27,6 +27,6 @@ public class Collection {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "collection", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "collection", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
 }
