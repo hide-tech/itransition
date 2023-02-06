@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
+		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.yazukov.proj</groupId>
@@ -14,11 +14,12 @@
 	<name>proj</name>
 	<description>Itransition project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>19</java.version>
 		<hibernate.types52.vresion>2.16.2</hibernate.types52.vresion>
 		<mapstruct.version>1.5.2.Final</mapstruct.version>
 		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
 		<lombok.version>1.18.24</lombok.version>
+		<native.maven.plugin.version>0.9.19</native.maven.plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -124,9 +125,45 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.7.4</version>
+				<version>3.0.2</version>
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>native</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<version>${native.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<executions>
+							<execution>
+								<id>build-native</id>
+								<goals>
+									<goal>build</goal>
+								</goals>
+								<phase>package</phase>
+							</execution>
+							<execution>
+								<id>test-native</id>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<phase>test</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<imageName>item-store</imageName>
+							<mainClass>com.yazukov.proj.ProjApplication</mainClass>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
